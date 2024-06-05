@@ -18,9 +18,11 @@
     if (isset($_SESSION['logado'])) {
         header("Location: index.php");
     }else{
+
         if(isset($_POST['email']) && isset($_POST['senha'])){
             $email = $_POST['email'];
             $senha = $_POST['senha'];
+            
 
             $conn = mysqli_connect("localhost", "root", "", "kyiosh");
             $sql = "SELECT * FROM `tbclientes` WHERE `emailCli` = '$email' AND `senhaCli` = '$senha'";
@@ -33,7 +35,7 @@
 				$_SESSION["nomeCli"] = $linha["nomeCli"];
 				$_SESSION["foneCli"] = $linha["foneCli"];
                 mysqli_close($conn);
-                header("Location: index.php");
+                header("Location: index.php");      
 				
 		}else{ ?>
                 <h3>Email e/ou senha inválidos ou você não possui cadastro.</h3>

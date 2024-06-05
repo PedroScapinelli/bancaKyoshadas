@@ -51,9 +51,9 @@ if (isset($_SESSION["logado"]) || $_SESSION["logado"] == 's') {
                 $resultado = mysqli_query($conn, $sql);
 
                 if(!$resultado){
-                    die('Query Inválida: ' . @mysqli_error($conexao));
+                    die('Query Inválida: ' . @mysqli_error($conn));
                 }else {
-                    mysqli_close($conn);
+                            mysqli_close($conn);
                     header("Location: login.php");
                 }
             }

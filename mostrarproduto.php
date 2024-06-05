@@ -21,12 +21,14 @@ session_start();
             echo "<img src='imagens/".$linha["fotoProd"]."'>";
             echo "<h2>Produto: ".$linha["nomeProd"]."</h2>";
             echo "<h2>Descrição: ".$linha["descProd"]."</h2>";
+
             if($linha["promocao"] === "s"){
                 echo "<h2>Preço promocional: ".$linha["precoProm"]." (preço antigo: ".$linha["precoVenda"].")</h2>";                 
-            }else{
+            }
+            else{
                 echo "<h2>Preço: ".$linha["precoVenda"]."</h2>";
             }
-            echo "<a href=\"carrinho.php?acao=adicionar&idProduto=".$linha["idProduto"]."\">Adicionar carrinho</a>";
+            echo "<form action=\"carrinho.php?acao=add&idProduto=".$linha["idProduto"]."\" method="."post"."><input type="."submit"." value="."Adicionar ao carrino"."></form>";
         }
     ?>
 </main>

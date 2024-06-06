@@ -111,8 +111,8 @@
                         echo "<h2>Produto: ".$linha["nomeProd"]."</h2>";
                         echo "<h2>Descrição: ".$linha["descProd"]."</h2>";
                         echo "<h2>Quantidade: ".$qtd."</h2>";
-                        echo "<form action='?acao=remover&idProduto=$idProduto' method='post'><input type='submit' value='Fazer login'></form><p>";
-                        echo "<form action='?acao=add&idProduto=$idProduto' method='post'><input type='submit' value='Fazer login'></form><p>";
+                        echo "<form action='?acao=remover&idProduto=$idProduto' method='post'><input type='submit' value='remover'></form><p>";
+                        echo "<form action='?acao=add&idProduto=$idProduto' method='post'><input type='submit' value='adicionar mais um'></form><p>";
                         echo "</div>";
                         if($linha["promocao"] == "s"){
                             $_SESSION['precoVendido'] = $linha["precoProm"];

@@ -39,45 +39,52 @@
             <tbody>
             
             <?php
-
-                if(isset($_POST['data'])){
+                
+                if (isset($_POST['data'])) {
                     $data = $_POST['data'];
-                    $totalPedidos = 0;
-                    
                     $conn = mysqli_connect("localhost", "root", "", "kyiosh");
-                    $sql = "SELECT *, SUM(`qnt`) AS 'qntProduto', SUM(`precoVenda`) AS 'total' FROM `tbvendas` WHERE `data` = '$data' GROUP BY `idProduto`;";
+                    
+                    if (!$conn) {
+                        die("Conexão falhou: " . mysqli_connect_error());
+                    }
+                
+                    $sql = "SELECT v.idProduto, p.fotoProd, p.nomeProd, p.precoVenda, SUM(v.qnt) AS 'qntProduto', SUM(v.precoVenda) AS 'total'
+                             FROM tbvendas v
+                             JOIN tbProduto p ON v.idProduto = p.idProduto
+                             WHERE v.data = '$data'
+                             GROUP BY v.idProduto;";
                     $resultado = mysqli_query($conn, $sql);
-
-                    if($resultado){
-                        while($linha = mysqli_fetch_array($resultado)){
+                
+                    if ($resultado) {
+                        while ($linha2 = mysqli_fetch_array($resultado)) {
+                            $foto = $linha['fotoProd'];
+                            $nomeProd = $linha['nomeProd'];
+                            $precoProd = $linha['precoVenda'];
                             $total = $linha['total'];
-
-                            $sql2 = "SELECT *  FROM `tbProduto`;";
-                            $resultado2 = mysqli_query($conn,$sql2);
-
-                            if($resultado2){
-                                while($linha2 = mysqli_fetch_array($resultado2)){
-                                    $foto = $linha2['fotoProd'];
-                                    $nomeProd = $linha2['nomeProd'];
-                                    $precoProd = $linha2['precoVenda'];
-                                }
+                            $qntProduto = $linha['qntProduto'];
+                
+                            if ($qntProduto > 0) {
+                                $precoVenda = $total / $qntProduto;
+                            } else {
+                                $precoVenda = 0;
                             }
-
-                            $precoVenda = $linha['total'] / $linha['qntProduto'];
-
+                
                             echo "<tr>";
-                                echo "<td><img height='50%'src='../imagens/".$foto."' alt='foto produto'></td>";
-                                echo "<td>".$nomeProd."</td>";
-                                echo "<td>".$precoProd."</td>";
-                                echo "<td>".$precoVenda."</td>";
-                                echo "<td>".$linha['qntProduto']."</td>";
-                                echo "<td>".$total."</td>";
+                                echo "<td><img height='50%' src='../imagens/" . $foto . "' alt='foto produto'></td>";
+                                echo "<td>" . $nomeProd . "</td>";
+                                echo "<td>" . $precoProd . "</td>";
+                                echo "<td>" . $precoVenda . "</td>";
+                                echo "<td>" . $qntProduto . "</td>";
+                                echo "<td>" . $total . "</td>";
                             echo "</tr>";
                         }
+                    } else {
+                        echo "Erro na consulta: " . mysqli_error($conn);
                     }
-                }
+                
+                    mysqli_close($conn);
             }
-            mysqli_close($conn);
+        }
     ?>
             </tbody>
             </table>

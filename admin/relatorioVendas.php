@@ -43,6 +43,7 @@
                 if (isset($_POST['data'])) {
                     $data = $_POST['data'];
                     $conn = mysqli_connect("localhost", "root", "", "kyiosh");
+                    $totalVendas = 0;
                     
                     if (!$conn) {
                         die("Conexão falhou: " . mysqli_connect_error());
@@ -56,12 +57,13 @@
                     $resultado = mysqli_query($conn, $sql);
                 
                     if ($resultado) {
-                        while ($linha2 = mysqli_fetch_array($resultado)) {
+                        while ($linha = mysqli_fetch_array($resultado)) {
                             $foto = $linha['fotoProd'];
                             $nomeProd = $linha['nomeProd'];
                             $precoProd = $linha['precoVenda'];
                             $total = $linha['total'];
                             $qntProduto = $linha['qntProduto'];
+                            $totalVendas += $total;
                 
                             if ($qntProduto > 0) {
                                 $precoVenda = $total / $qntProduto;
@@ -72,22 +74,28 @@
                             echo "<tr>";
                                 echo "<td><img height='50%' src='../imagens/" . $foto . "' alt='foto produto'></td>";
                                 echo "<td>" . $nomeProd . "</td>";
-                                echo "<td>" . $precoProd . "</td>";
-                                echo "<td>" . $precoVenda . "</td>";
+                                echo "<td>R$" . $precoProd . "</td>";
+                                echo "<td>R$" . $precoVenda . "</td>";
                                 echo "<td>" . $qntProduto . "</td>";
-                                echo "<td>" . $total . "</td>";
+                                echo "<td>R$" . $total . "</td>";
                             echo "</tr>";
                         }
                     } else {
                         echo "Erro na consulta: " . mysqli_error($conn);
                     }
                 
+                    echo "<tr>";
+                        echo "<h3>Total de Vendas: R$".$totalVendas."</h3>";
+                    echo "</tr>";
+
                     mysqli_close($conn);
             }
         }
     ?>
             </tbody>
             </table>
+
+            <form action='index.php' method='post'><input type='submit' value='voltar'></form>
 </center>
 </body>
 </html>

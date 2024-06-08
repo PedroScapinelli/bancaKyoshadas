@@ -11,7 +11,12 @@
         <p><input type="text" name="nome" placeholder="Nome" required></p>
         <p><input type="text" name="email" placeholder="Email" required></p>
         <p><input type="password" name="senha" placeholder="Senha" required></p>
-        <p><input type="text" name="funcao" placeholder="Função(admin, caixa, vendedor)" required></p>
+        <p>Função</p>
+        <select name="funcao">
+            <option value="admin">Administrador</option>
+            <option value="caixa">Caixa</option>
+            <option value="vendedor">Vendedor</option>
+        </select>
         <p><input type="submit" value="Adicionar"></p>
     </form>
 
@@ -38,42 +43,39 @@
 
                 $conn = mysqli_connect("localhost", "root", "", "kyiosh");
 
-                if($nome != 'admin' || $nome != 'caixa' || $nome != 'vendendor'){
-                    echo "<script>confirm('Defina uma função válida!');</script>";
-                }
 
-                function validarEmail($email){
-                    $pattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
-                    return preg_match($pattern, $email);
-                }
-    
-                $verificarEmailBD = mysqli_query($conn, "SELECT * FROM `tbfuncinarios` WHERE `emailFunc` = '$email'");
-    
-                if($linha = mysqli_fetch_array($verificarEmailBD)){
-                    mysqli_close($conn);
-                    echo "<script>confirm('Email já cadastrado');</script>";
-                }
-                else if(validarEmail($email) != true){
-                    echo "<script>confirm('Email inválido');</script>";
-                }
-                else{
-                    $sql = "INSERT INTO `tbfuncinarios`(`idFunc`, `nomeFunc`, `emailFunc`, `senhaFunc`, `funcao`, `ativo`) VALUES (NULL, '$nome', '$email', '$senha', '$funcao', 's')";
-                    $resultado = mysqli_query($conn, $sql);
-
-                    if(!$resultado){
-                        echo "Erro na consulta: " . mysqli_error($conn);
+                    function validarEmail($email){
+                        $pattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+                        return preg_match($pattern, $email);
+                    }
+        
+                    $verificarEmailBD = mysqli_query($conn, "SELECT * FROM `tbfuncinarios` WHERE `emailFunc` = '$email'");
+        
+                    if($linha = mysqli_fetch_array($verificarEmailBD)){
+                        mysqli_close($conn);
+                        echo "<script>confirm('Email já cadastrado');</script>";
+                    }
+                    else if(validarEmail($email) != true){
+                        echo "<script>confirm('Email inválido');</script>";
                     }
                     else{
-                        mysqli_close($conn);
-                        
-                        echo "<script>";
-                            echo "confirm('Adição feita com Sucesso!');";
-                        echo "</script>";
-                    }
-                }
-            }
+                        $sql = "INSERT INTO `tbfuncinarios`(`idFunc`, `nomeFunc`, `emailFunc`, `senhaFunc`, `funcao`, `ativo`) VALUES (NULL, '$nome', '$email', '$senha', '$funcao', 's')";
+                        $resultado = mysqli_query($conn, $sql);
 
-    }
+                        if(!$resultado){
+                            echo "Erro na consulta: " . mysqli_error($conn);
+                        }
+                        else{
+                            mysqli_close($conn);
+                            
+                            echo "<script>";
+                                echo "confirm('Adição feita com Sucesso!');";
+                            echo "</script>";
+                        
+                        }
+                    }
+            }
+        }
     ?>
 
 </center>

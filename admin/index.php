@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == 'n') {
-    header("Location: admin/login.php");
+    header("Location: login.php");
 } ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,7 +14,8 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == 'n') {
     <form action="relatorioVendas.php" method="post"><input type="submit" value="Relatório de Vendas"></form>
     <form action="gestaoFunc/index.php" method="post"><input type="submit" value="Gestão de Funcionários"></form>
     <form action="gestaoProd/index.php" method="post"><input type="submit" value="Gestão de Produtos"></form>
-    <form action="../sair.php" method="post"><input type="submit" value="sair"></form>
+    <form action="../sair.php" method="post"><input type="submit" value="deslogar"></form>
+    <form action="../index.php" method="post"><input type="submit" value="voltar"></form>
     <?php
         $conn = mysqli_connect("localhost", "root", "", "kyiosh");
 

@@ -18,10 +18,7 @@
     <form action="alterar.php" method="post">
         <input type="submit" value="Alterar Dados de um Funcionário">
     </form>
-
-    <form action="../sair.php" method="post">
-        <input type="submit" value="sair">
-    </form>
+    <form action="../index.php" method="post"><input type="submit" value="voltar"></form>
 </center>
 </body>
 </html>

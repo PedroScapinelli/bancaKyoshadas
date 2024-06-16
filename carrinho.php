@@ -107,7 +107,7 @@
             
                     while($linha = mysqli_fetch_array($resultado)){
                         echo "<div>";
-                        echo "<img src='imagens/".$linha["fotoProd"]."'>";
+                        echo "<img src='uploads/".$linha["fotoProd"]."'>";
                         echo "<h2>Produto: ".$linha["nomeProd"]."</h2>";
                         echo "<h2>Descrição: ".$linha["descProd"]."</h2>";
                         echo "<h2>Quantidade: ".$qtd."</h2>";

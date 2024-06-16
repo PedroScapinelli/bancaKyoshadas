@@ -72,7 +72,7 @@
                             }
                 
                             echo "<tr>";
-                                echo "<td><img height='50%' src='../imagens/" . $foto . "' alt='foto produto'></td>";
+                                echo "<td><img height='50%' src='../uploads/" . $foto . "' alt='foto produto'></td>";
                                 echo "<td>" . $nomeProd . "</td>";
                                 echo "<td>R$" . $precoProd . "</td>";
                                 echo "<td>R$" . $precoVenda . "</td>";

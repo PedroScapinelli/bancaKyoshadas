@@ -23,7 +23,7 @@ if (isset($_SESSION["logado"]) && $_SESSION["logado"] == 's') {?>
             $sql="SELECT * FROM `tbproduto` WHERE `ativo` = 's' AND `promocao` = 's'";
             $resultado = mysqli_query($conn, $sql);
             while($linha = mysqli_fetch_array($resultado)){
-                echo "<a href=\"mostrarproduto.php?idProduto=".$linha["idProduto"]."\"><img src='imagens/".$linha["fotoProd"]."'></a>";
+                echo "<a href=\"mostrarproduto.php?idProduto=".$linha["idProduto"]."\"><img src='uploads/".$linha["fotoProd"]."'></a>";
             }
         ?>
     </div>
@@ -33,7 +33,7 @@ if (isset($_SESSION["logado"]) && $_SESSION["logado"] == 's') {?>
              $sql="SELECT * FROM `tbproduto` WHERE `ativo` = 's' AND `promocao` = 'n'";
              $resultado = mysqli_query($conn, $sql);
              while($linha = mysqli_fetch_array($resultado)){
-                echo "<a href=\"mostrarproduto.php?idProduto=".$linha["idProduto"]."\"><img src='imagens/".$linha["fotoProd"]."'></a>";
+                echo "<a href=\"mostrarproduto.php?idProduto=".$linha["idProduto"]."\"><img src='uploads/".$linha["fotoProd"]."'></a>";
              }
         ?> 
     </div>
